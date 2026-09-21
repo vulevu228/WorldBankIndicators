@@ -1,0 +1,305 @@
+table Countries
+	lineageTag: 95801073-1b68-5cf9-ac6e-67373bcd0e28
+
+	column 'Country Code'
+		dataType: string
+		lineageTag: 70d9ad65-fa10-5de2-9be6-898ac4e50cc5
+		summarizeBy: none
+		sourceColumn: Country Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: b9791dbd-1570-59eb-a3fb-f2828ba9904b
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: 516f0521-cc9b-5098-baf9-8b835aa4ee91
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Income Group'
+		dataType: string
+		lineageTag: 41d77cd6-d4b3-5c8a-8621-def0cb2e8105
+		summarizeBy: none
+		sourceColumn: Income Group
+		sortByColumn: 'Income Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Income Order'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1f3f5b0c-8232-5e57-ae8e-2276f7763001
+		summarizeBy: none
+		sourceColumn: Income Order
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Capital City'
+		dataType: string
+		lineageTag: 31f5db39-44bd-59e7-a4aa-6749242c05da
+		summarizeBy: none
+		sourceColumn: Capital City
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Capital Latitude'
+		dataType: double
+		lineageTag: 9a5b241d-e00d-5637-8aea-60c7ea57d715
+		summarizeBy: none
+		sourceColumn: Capital Latitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Capital Longitude'
+		dataType: double
+		lineageTag: c26f62c0-c75f-5f05-ba54-656721ae73f7
+		summarizeBy: none
+		sourceColumn: Capital Longitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Countries = m
+		mode: import
+		source =
+				let
+				  Source = #table(
+				      {"Country Code", "Country", "Region", "Income Group", "Income Order", "Capital City", "Capital Latitude", "Capital Longitude"},
+				      {
+				          {"AFG", "Afghanistan", "MENA + Afghanistan & Pakistan", "Low income", 1, "Kabul", 34.5228, 69.1761},
+				          {"ALB", "Albania", "Europe & Central Asia", "Upper middle income", 3, "Tirane", 41.3317, 19.8172},
+				          {"DZA", "Algeria", "MENA + Afghanistan & Pakistan", "Upper middle income", 3, "Algiers", 36.7397, 3.05097},
+				          {"ASM", "American Samoa", "East Asia & Pacific", "High income", 4, "Pago Pago", -14.2846, -170.691},
+				          {"AND", "Andorra", "Europe & Central Asia", "High income", 4, "Andorra la Vella", 42.5075, 1.5218},
+				          {"AGO", "Angola", "Sub-Saharan Africa", "Lower middle income", 2, "Luanda", -8.81155, 13.242},
+				          {"ATG", "Antigua and Barbuda", "Latin America & Caribbean", "High income", 4, "Saint John's", 17.1175, -61.8456},
+				          {"ARG", "Argentina", "Latin America & Caribbean", "Upper middle income", 3, "Buenos Aires", -34.6118, -58.4173},
+				          {"ARM", "Armenia", "Europe & Central Asia", "Upper middle income", 3, "Yerevan", 40.1596, 44.509},
+				          {"ABW", "Aruba", "Latin America & Caribbean", "High income", 4, "Oranjestad", 12.5167, -70.0167},
+				          {"AUS", "Australia", "East Asia & Pacific", "High income", 4, "Canberra", -35.282, 149.129},
+				          {"AUT", "Austria", "Europe & Central Asia", "High income", 4, "Vienna", 48.2201, 16.3798},
+				          {"AZE", "Azerbaijan", "Europe & Central Asia", "Upper middle income", 3, "Baku", 40.3834, 49.8932},
+				          {"BHS", "Bahamas, The", "Latin America & Caribbean", "High income", 4, "Nassau", 25.0661, -77.339},
+				          {"BHR", "Bahrain", "MENA + Afghanistan & Pakistan", "High income", 4, "Manama", 26.1921, 50.5354},
+				          {"BGD", "Bangladesh", "South Asia", "Lower middle income", 2, "Dhaka", 23.7055, 90.4113},
+				          {"BRB", "Barbados", "Latin America & Caribbean", "High income", 4, "Bridgetown", 13.0935, -59.6105},
+				          {"BLR", "Belarus", "Europe & Central Asia", "Upper middle income", 3, "Minsk", 53.9678, 27.5766},
+				          {"BEL", "Belgium", "Europe & Central Asia", "High income", 4, "Brussels", 50.8371, 4.36761},
+				          {"BLZ", "Belize", "Latin America & Caribbean", "Upper middle income", 3, "Belmopan", 17.2534, -88.7713},
+				          {"BEN", "Benin", "Sub-Saharan Africa", "Lower middle income", 2, "Porto-Novo", 6.4779, 2.6323},
+				          {"BMU", "Bermuda", "North America", "High income", 4, "Hamilton", 32.3293, -64.706},
+				          {"BTN", "Bhutan", "South Asia", "Lower middle income", 2, "Thimphu", 27.5768, 89.6177},
+				          {"BOL", "Bolivia", "Latin America & Caribbean", "Lower middle income", 2, "La Paz", -13.9908, -66.1936},
+				          {"BIH", "Bosnia and Herzegovina", "Europe & Central Asia", "Upper middle income", 3, "Sarajevo", 43.8607, 18.4214},
+				          {"BWA", "Botswana", "Sub-Saharan Africa", "Upper middle income", 3, "Gaborone", -24.6544, 25.9201},
+				          {"BRA", "Brazil", "Latin America & Caribbean", "Upper middle income", 3, "Brasilia", -15.7801, -47.9292},
+				          {"VGB", "British Virgin Islands", "Latin America & Caribbean", "High income", 4, "Road Town", 18.431389, -64.623056},
+				          {"BRN", "Brunei Darussalam", "East Asia & Pacific", "High income", 4, "Bandar Seri Begawan", 4.94199, 114.946},
+				          {"BGR", "Bulgaria", "Europe & Central Asia", "High income", 4, "Sofia", 42.7105, 23.3238},
+				          {"BFA", "Burkina Faso", "Sub-Saharan Africa", "Low income", 1, "Ouagadougou", 12.3605, -1.53395},
+				          {"BDI", "Burundi", "Sub-Saharan Africa", "Low income", 1, "Bujumbura", -3.3784, 29.3639},
+				          {"CPV", "Cabo Verde", "Sub-Saharan Africa", "Upper middle income", 3, "Praia", 14.9218, -23.5087},
+				          {"KHM", "Cambodia", "East Asia & Pacific", "Lower middle income", 2, "Phnom Penh", 11.5556, 104.874},
+				          {"CMR", "Cameroon", "Sub-Saharan Africa", "Lower middle income", 2, "Yaounde", 3.8721, 11.5174},
+				          {"CAN", "Canada", "North America", "High income", 4, "Ottawa", 45.4215, -75.6919},
+				          {"CYM", "Cayman Islands", "Latin America & Caribbean", "High income", 4, "George Town", 19.3022, -81.3857},
+				          {"CAF", "Central African Republic", "Sub-Saharan Africa", "Low income", 1, "Bangui", 5.63056, 21.6407},
+				          {"TCD", "Chad", "Sub-Saharan Africa", "Low income", 1, "N'Djamena", 12.1048, 15.0445},
+				          {"CHI", "Channel Islands", "Europe & Central Asia", "High income", 4, "", 49.22, -2.13},
+				          {"CHL", "Chile", "Latin America & Caribbean", "High income", 4, "Santiago", -33.475, -70.6475},
+				          {"CHN", "China", "East Asia & Pacific", "Upper middle income", 3, "Beijing", 40.0495, 116.286},
+				          {"COL", "Colombia", "Latin America & Caribbean", "Upper middle income", 3, "Bogota", 4.60987, -74.082},
+				          {"COM", "Comoros", "Sub-Saharan Africa", "Lower middle income", 2, "Moroni", -11.6986, 43.2418},
+				          {"COD", "Congo, Dem. Rep.", "Sub-Saharan Africa", "Low income", 1, "Kinshasa", -4.325, 15.3222},
+				          {"COG", "Congo, Rep.", "Sub-Saharan Africa", "Lower middle income", 2, "Brazzaville", -4.2767, 15.2662},
+				          {"CRI", "Costa Rica", "Latin America & Caribbean", "High income", 4, "San Jose", 9.63701, -84.0089},
+				          {"CIV", "Cote d'Ivoire", "Sub-Saharan Africa", "Lower middle income", 2, "Yamoussoukro", 5.332, -4.0305},
+				          {"HRV", "Croatia", "Europe & Central Asia", "High income", 4, "Zagreb", 45.8069, 15.9614},
+				          {"CUB", "Cuba", "Latin America & Caribbean", "Upper middle income", 3, "Havana", 23.1333, -82.3667},
+				          {"CUW", "Curacao", "Latin America & Caribbean", "High income", 4, "Willemstad", 12.17, -68.98},
+				          {"CYP", "Cyprus", "Europe & Central Asia", "High income", 4, "Nicosia", 35.1676, 33.3736},
+				          {"CZE", "Czechia", "Europe & Central Asia", "High income", 4, "Prague", 50.0878, 14.4205},
+				          {"DNK", "Denmark", "Europe & Central Asia", "High income", 4, "Copenhagen", 55.6763, 12.5681},
+				          {"DJI", "Djibouti", "MENA + Afghanistan & Pakistan", "Lower middle income", 2, "Djibouti", 11.5806, 43.1425},
+				          {"DMA", "Dominica", "Latin America & Caribbean", "Upper middle income", 3, "Roseau", 15.2976, -61.39},
+				          {"DOM", "Dominican Republic", "Latin America & Caribbean", "Upper middle income", 3, "Santo Domingo", 18.479, -69.8908},
+				          {"ECU", "Ecuador", "Latin America & Caribbean", "Upper middle income", 3, "Quito", -0.229498, -78.5243},
+				          {"EGY", "Egypt, Arab Rep.", "MENA + Afghanistan & Pakistan", "Lower middle income", 2, "Cairo", 30.0982, 31.2461},
+				          {"SLV", "El Salvador", "Latin America & Caribbean", "Upper middle income", 3, "San Salvador", 13.7034, -89.2073},
+				          {"GNQ", "Equatorial Guinea", "Sub-Saharan Africa", "Upper middle income", 3, "Malabo", 3.7523, 8.7741},
+				          {"ERI", "Eritrea", "Sub-Saharan Africa", "Low income", 1, "Asmara", 15.3315, 38.9183},
+				          {"EST", "Estonia", "Europe & Central Asia", "High income", 4, "Tallinn", 59.4392, 24.7586},
+				          {"SWZ", "Eswatini", "Sub-Saharan Africa", "Lower middle income", 2, "Mbabane", -26.5225, 31.4659},
+				          {"ETH", "Ethiopia", "Sub-Saharan Africa", "Low income", 1, "Addis Ababa", 9.02274, 38.7468},
+				          {"FRO", "Faroe Islands", "Europe & Central Asia", "High income", 4, "Torshavn", 61.8926, -6.91181},
+				          {"FJI", "Fiji", "East Asia & Pacific", "Upper middle income", 3, "Suva", -18.1149, 178.399},
+				          {"FIN", "Finland", "Europe & Central Asia", "High income", 4, "Helsinki", 60.1608, 24.9525},
+				          {"FRA", "France", "Europe & Central Asia", "High income", 4, "Paris", 48.8566, 2.35097},
+				          {"PYF", "French Polynesia", "East Asia & Pacific", "High income", 4, "Papeete", -17.535, -149.57},
+				          {"GAB", "Gabon", "Sub-Saharan Africa", "Upper middle income", 3, "Libreville", 0.38832, 9.45162},
+				          {"GMB", "Gambia, The", "Sub-Saharan Africa", "Low income", 1, "Banjul", 13.4495, -16.5885},
+				          {"GEO", "Georgia", "Europe & Central Asia", "Upper middle income", 3, "Tbilisi", 41.71, 44.793},
+				          {"DEU", "Germany", "Europe & Central Asia", "High income", 4, "Berlin", 52.5235, 13.4115},
+				          {"GHA", "Ghana", "Sub-Saharan Africa", "Lower middle income", 2, "Accra", 5.57045, -0.20795},
+				          {"GIB", "Gibraltar", "Europe & Central Asia", "High income", 4, "", 36.14, -5.35},
+				          {"GRC", "Greece", "Europe & Central Asia", "High income", 4, "Athens", 37.9792, 23.7166},
+				          {"GRL", "Greenland", "Europe & Central Asia", "High income", 4, "Nuuk", 64.1836, -51.7214},
+				          {"GRD", "Grenada", "Latin America & Caribbean", "Upper middle income", 3, "Saint George's", 12.0653, -61.7449},
+				          {"GUM", "Guam", "East Asia & Pacific", "High income", 4, "Agana", 13.4443, 144.794},
+				          {"GTM", "Guatemala", "Latin America & Caribbean", "Upper middle income", 3, "Guatemala City", 14.6248, -90.5328},
+				          {"GIN", "Guinea", "Sub-Saharan Africa", "Lower middle income", 2, "Conakry", 9.51667, -13.7},
+				          {"GNB", "Guinea-Bissau", "Sub-Saharan Africa", "Low income", 1, "Bissau", 11.8037, -15.1804},
+				          {"GUY", "Guyana", "Latin America & Caribbean", "High income", 4, "Georgetown", 6.80461, -58.1548},
+				          {"HTI", "Haiti", "Latin America & Caribbean", "Lower middle income", 2, "Port-au-Prince", 18.5392, -72.3288},
+				          {"HND", "Honduras", "Latin America & Caribbean", "Lower middle income", 2, "Tegucigalpa", 15.1333, -87.4667},
+				          {"HKG", "Hong Kong SAR, China", "East Asia & Pacific", "High income", 4, "", 22.3964, 114.109},
+				          {"HUN", "Hungary", "Europe & Central Asia", "High income", 4, "Budapest", 47.4984, 19.0408},
+				          {"ISL", "Iceland", "Europe & Central Asia", "High income", 4, "Reykjavik", 64.1353, -21.8952},
+				          {"IND", "India", "South Asia", "Lower middle income", 2, "New Delhi", 28.6353, 77.225},
+				          {"IDN", "Indonesia", "East Asia & Pacific", "Upper middle income", 3, "Jakarta", -6.19752, 106.83},
+				          {"IRN", "Iran, Islamic Rep.", "MENA + Afghanistan & Pakistan", "Upper middle income", 3, "Tehran", 35.6878, 51.4447},
+				          {"IRQ", "Iraq", "MENA + Afghanistan & Pakistan", "Upper middle income", 3, "Baghdad", 33.3302, 44.394},
+				          {"IRL", "Ireland", "Europe & Central Asia", "High income", 4, "Dublin", 53.3441, -6.26749},
+				          {"IMN", "Isle of Man", "Europe & Central Asia", "High income", 4, "Douglas", 54.1509, -4.47928},
+				          {"ISR", "Israel", "MENA + Afghanistan & Pakistan", "High income", 4, "", 31.7717, 35.2035},
+				          {"ITA", "Italy", "Europe & Central Asia", "High income", 4, "Rome", 41.8955, 12.4823},
+				          {"JAM", "Jamaica", "Latin America & Caribbean", "Upper middle income", 3, "Kingston", 17.9927, -76.792},
+				          {"JPN", "Japan", "East Asia & Pacific", "High income", 4, "Tokyo", 35.67, 139.77},
+				          {"JOR", "Jordan", "MENA + Afghanistan & Pakistan", "Upper middle income", 3, "Amman", 31.9497, 35.9263},
+				          {"KAZ", "Kazakhstan", "Europe & Central Asia", "Upper middle income", 3, "Astana", 51.1879, 71.4382},
+				          {"KEN", "Kenya", "Sub-Saharan Africa", "Lower middle income", 2, "Nairobi", -1.27975, 36.8126},
+				          {"KIR", "Kiribati", "East Asia & Pacific", "Lower middle income", 2, "Tarawa", 1.32905, 172.979},
+				          {"PRK", "Korea, Dem. People's Rep.", "East Asia & Pacific", "Low income", 1, "Pyongyang", 39.0319, 125.754},
+				          {"KOR", "Korea, Rep.", "East Asia & Pacific", "High income", 4, "Seoul", 37.5323, 126.957},
+				          {"XKX", "Kosovo", "Europe & Central Asia", "Upper middle income", 3, "Pristina", 42.565, 20.926},
+				          {"KWT", "Kuwait", "MENA + Afghanistan & Pakistan", "High income", 4, "Kuwait City", 29.3721, 47.9824},
+				          {"KGZ", "Kyrgyz Republic", "Europe & Central Asia", "Lower middle income", 2, "Bishkek", 42.8851, 74.6057},
+				          {"LAO", "Lao PDR", "East Asia & Pacific", "Lower middle income", 2, "Vientiane", 18.5826, 102.177},
+				          {"LVA", "Latvia", "Europe & Central Asia", "High income", 4, "Riga", 56.9465, 24.1048},
+				          {"LBN", "Lebanon", "MENA + Afghanistan & Pakistan", "Lower middle income", 2, "Beirut", 33.8872, 35.5134},
+				          {"LSO", "Lesotho", "Sub-Saharan Africa", "Lower middle income", 2, "Maseru", -29.5208, 27.7167},
+				          {"LBR", "Liberia", "Sub-Saharan Africa", "Low income", 1, "Monrovia", 6.30039, -10.7957},
+				          {"LBY", "Libya", "MENA + Afghanistan & Pakistan", "Upper middle income", 3, "Tripoli", 32.8578, 13.1072},
+				          {"LIE", "Liechtenstein", "Europe & Central Asia", "High income", 4, "Vaduz", 47.1411, 9.52148},
+				          {"LTU", "Lithuania", "Europe & Central Asia", "High income", 4, "Vilnius", 54.6896, 25.2799},
+				          {"LUX", "Luxembourg", "Europe & Central Asia", "High income", 4, "Luxembourg", 49.61, 6.1296},
+				          {"MAC", "Macao SAR, China", "East Asia & Pacific", "High income", 4, "", 22.1667, 113.55},
+				          {"MDG", "Madagascar", "Sub-Saharan Africa", "Low income", 1, "Antananarivo", -20.4667, 45.7167},
+				          {"MWI", "Malawi", "Sub-Saharan Africa", "Low income", 1, "Lilongwe", -13.9899, 33.7703},
+				          {"MYS", "Malaysia", "East Asia & Pacific", "Upper middle income", 3, "Kuala Lumpur", 3.12433, 101.684},
+				          {"MDV", "Maldives", "South Asia", "Upper middle income", 3, "Male", 4.1742, 73.5109},
+				          {"MLI", "Mali", "Sub-Saharan Africa", "Low income", 1, "Bamako", 13.5667, -7.50034},
+				          {"MLT", "Malta", "MENA + Afghanistan & Pakistan", "High income", 4, "Valletta", 35.9042, 14.5189},
+				          {"MHL", "Marshall Islands", "East Asia & Pacific", "Upper middle income", 3, "Majuro", 7.11046, 171.135},
+				          {"MRT", "Mauritania", "Sub-Saharan Africa", "Lower middle income", 2, "Nouakchott", 18.2367, -15.9824},
+				          {"MUS", "Mauritius", "Sub-Saharan Africa", "Upper middle income", 3, "Port Louis", -20.1605, 57.4977},
+				          {"MEX", "Mexico", "Latin America & Caribbean", "Upper middle income", 3, "Mexico City", 19.427, -99.1276},
+				          {"FSM", "Micronesia, Fed. Sts.", "East Asia & Pacific", "Upper middle income", 3, "Palikir", 6.91771, 158.185},
+				          {"MDA", "Moldova", "Europe & Central Asia", "Upper middle income", 3, "Chisinau", 47.0167, 28.8497},
+				          {"MCO", "Monaco", "Europe & Central Asia", "High income", 4, "Monaco", 43.7325, 7.41891},
+				          {"MNG", "Mongolia", "East Asia & Pacific", "Upper middle income", 3, "Ulaanbaatar", 47.9129, 106.937},
+				          {"MNE", "Montenegro", "Europe & Central Asia", "Upper middle income", 3, "Podgorica", 42.4602, 19.2595},
+				          {"MAR", "Morocco", "MENA + Afghanistan & Pakistan", "Lower middle income", 2, "Rabat", 33.9905, -6.8704},
+				          {"MOZ", "Mozambique", "Sub-Saharan Africa", "Low income", 1, "Maputo", -25.9664, 32.5713},
+				          {"MMR", "Myanmar", "East Asia & Pacific", "Lower middle income", 2, "Naypyidaw", 21.914, 95.9562},
+				          {"NAM", "Namibia", "Sub-Saharan Africa", "Lower middle income", 2, "Windhoek", -22.5648, 17.0931},
+				          {"NRU", "Naoero", "East Asia & Pacific", "High income", 4, "Yaren District", -0.5477, 166.920867},
+				          {"NPL", "Nepal", "South Asia", "Lower middle income", 2, "Kathmandu", 27.6939, 85.3157},
+				          {"NLD", "Netherlands", "Europe & Central Asia", "High income", 4, "Amsterdam", 52.3738, 4.89095},
+				          {"NCL", "New Caledonia", "East Asia & Pacific", "High income", 4, "Noum'ea", -22.2677, 166.464},
+				          {"NZL", "New Zealand", "East Asia & Pacific", "High income", 4, "Wellington", -41.2865, 174.776},
+				          {"NIC", "Nicaragua", "Latin America & Caribbean", "Lower middle income", 2, "Managua", 12.1475, -86.2734},
+				          {"NER", "Niger", "Sub-Saharan Africa", "Low income", 1, "Niamey", 13.514, 2.1073},
+				          {"NGA", "Nigeria", "Sub-Saharan Africa", "Lower middle income", 2, "Abuja", 9.05804, 7.48906},
+				          {"MKD", "North Macedonia", "Europe & Central Asia", "Upper middle income", 3, "Skopje", 42.0024, 21.4361},
+				          {"MNP", "Northern Mariana Islands", "East Asia & Pacific", "High income", 4, "Saipan", 15.1935, 145.765},
+				          {"NOR", "Norway", "Europe & Central Asia", "High income", 4, "Oslo", 59.9138, 10.7387},
+				          {"OMN", "Oman", "MENA + Afghanistan & Pakistan", "High income", 4, "Muscat", 23.6105, 58.5874},
+				          {"PAK", "Pakistan", "MENA + Afghanistan & Pakistan", "Lower middle income", 2, "Islamabad", 30.5167, 72.8},
+				          {"PLW", "Palau", "East Asia & Pacific", "High income", 4, "Koror", 7.34194, 134.479},
+				          {"PAN", "Panama", "Latin America & Caribbean", "High income", 4, "Panama City", 8.99427, -79.5188},
+				          {"PNG", "Papua New Guinea", "East Asia & Pacific", "Lower middle income", 2, "Port Moresby", -9.47357, 147.194},
+				          {"PRY", "Paraguay", "Latin America & Caribbean", "Upper middle income", 3, "Asuncion", -25.3005, -57.6362},
+				          {"PER", "Peru", "Latin America & Caribbean", "Upper middle income", 3, "Lima", -12.0931, -77.0465},
+				          {"PHL", "Philippines", "East Asia & Pacific", "Upper middle income", 3, "Manila", 14.5515, 121.035},
+				          {"POL", "Poland", "Europe & Central Asia", "High income", 4, "Warsaw", 52.26, 21.02},
+				          {"PRT", "Portugal", "Europe & Central Asia", "High income", 4, "Lisbon", 38.7072, -9.13552},
+				          {"PRI", "Puerto Rico (US)", "Latin America & Caribbean", "High income", 4, "San Juan", 18.23, -66.0},
+				          {"QAT", "Qatar", "MENA + Afghanistan & Pakistan", "High income", 4, "Doha", 25.2948, 51.5082},
+				          {"ROU", "Romania", "Europe & Central Asia", "High income", 4, "Bucharest", 44.4479, 26.0979},
+				          {"RUS", "Russian Federation", "Europe & Central Asia", "High income", 4, "Moscow", 55.7558, 37.6176},
+				          {"RWA", "Rwanda", "Sub-Saharan Africa", "Low income", 1, "Kigali", -1.95325, 30.0587},
+				          {"WSM", "Samoa", "East Asia & Pacific", "Upper middle income", 3, "Apia", -13.8314, -171.752},
+				          {"SMR", "San Marino", "Europe & Central Asia", "High income", 4, "San Marino", 43.9322, 12.4486},
+				          {"STP", "Sao Tome and Principe", "Sub-Saharan Africa", "Lower middle income", 2, "Sao Tome", 0.20618, 6.6071},
+				          {"SAU", "Saudi Arabia", "MENA + Afghanistan & Pakistan", "High income", 4, "Riyadh", 24.6748, 46.6977},
+				          {"SEN", "Senegal", "Sub-Saharan Africa", "Lower middle income", 2, "Dakar", 14.7247, -17.4734},
+				          {"SRB", "Serbia", "Europe & Central Asia", "Upper middle income", 3, "Belgrade", 44.8024, 20.4656},
+				          {"SYC", "Seychelles", "Sub-Saharan Africa", "High income", 4, "Victoria", -4.6309, 55.4466},
+				          {"SLE", "Sierra Leone", "Sub-Saharan Africa", "Low income", 1, "Freetown", 8.4821, -13.2134},
+				          {"SGP", "Singapore", "East Asia & Pacific", "High income", 4, "Singapore", 1.28941, 103.85},
+				          {"SXM", "Sint Maarten (Dutch part)", "Latin America & Caribbean", "High income", 4, "Philipsburg", 18.04, -63.07},
+				          {"SVK", "Slovak Republic", "Europe & Central Asia", "High income", 4, "Bratislava", 48.1484, 17.1073},
+				          {"SVN", "Slovenia", "Europe & Central Asia", "High income", 4, "Ljubljana", 46.0546, 14.5044},
+				          {"SLB", "Solomon Islands", "East Asia & Pacific", "Lower middle income", 2, "Honiara", -9.42676, 159.949},
+				          {"SOM", "Somalia, Fed. Rep.", "Sub-Saharan Africa", "Low income", 1, "Mogadishu", 2.07515, 45.3254},
+				          {"ZAF", "South Africa", "Sub-Saharan Africa", "Upper middle income", 3, "Pretoria", -25.746, 28.1871},
+				          {"SSD", "South Sudan", "Sub-Saharan Africa", "Low income", 1, "Juba", 4.85, 31.6},
+				          {"ESP", "Spain", "Europe & Central Asia", "High income", 4, "Madrid", 40.4167, -3.70327},
+				          {"LKA", "Sri Lanka", "South Asia", "Upper middle income", 3, "Colombo", 6.92148, 79.8528},
+				          {"KNA", "St. Kitts and Nevis", "Latin America & Caribbean", "High income", 4, "Basseterre", 17.3, -62.7309},
+				          {"LCA", "St. Lucia", "Latin America & Caribbean", "Upper middle income", 3, "Castries", 14.0, -60.9832},
+				          {"MAF", "St. Martin (French part)", "Latin America & Caribbean", "High income", 4, "Marigot", 18.07, -63.05},
+				          {"VCT", "St. Vincent and the Grenadines", "Latin America & Caribbean", "Upper middle income", 3, "Kingstown", 13.2035, -61.2653},
+				          {"SDN", "Sudan", "Sub-Saharan Africa", "Low income", 1, "Khartoum", 15.5932, 32.5363},
+				          {"SUR", "Suriname", "Latin America & Caribbean", "Upper middle income", 3, "Paramaribo", 5.8232, -55.1679},
+				          {"SWE", "Sweden", "Europe & Central Asia", "High income", 4, "Stockholm", 59.3327, 18.0645},
+				          {"CHE", "Switzerland", "Europe & Central Asia", "High income", 4, "Bern", 46.948, 7.44821},
+				          {"SYR", "Syrian Arab Republic", "MENA + Afghanistan & Pakistan", "Low income", 1, "Damascus", 33.5146, 36.3119},
+				          {"TJK", "Tajikistan", "Europe & Central Asia", "Lower middle income", 2, "Dushanbe", 38.5878, 68.7864},
+				          {"TZA", "Tanzania", "Sub-Saharan Africa", "Lower middle income", 2, "Dodoma", -6.17486, 35.7382},
+				          {"THA", "Thailand", "East Asia & Pacific", "Upper middle income", 3, "Bangkok", 13.7308, 100.521},
+				          {"TLS", "Timor-Leste", "East Asia & Pacific", "Lower middle income", 2, "Dili", -8.56667, 125.567},
+				          {"TGO", "Togo", "Sub-Saharan Africa", "Lower middle income", 2, "Lome", 6.1228, 1.2255},
+				          {"TON", "Tonga", "East Asia & Pacific", "Upper middle income", 3, "Nuku'alofa", -21.136, -175.216},
+				          {"TTO", "Trinidad and Tobago", "Latin America & Caribbean", "High income", 4, "Port-of-Spain", 10.6596, -61.4789},
+				          {"TUN", "Tunisia", "MENA + Afghanistan & Pakistan", "Lower middle income", 2, "Tunis", 36.7899, 10.21},
+				          {"TUR", "Turkiye", "Europe & Central Asia", "Upper middle income", 3, "Ankara", 39.7153, 32.3606},
+				          {"TKM", "Turkmenistan", "Europe & Central Asia", "Upper middle income", 3, "Ashgabat", 37.9509, 58.3794},
+				          {"TCA", "Turks and Caicos Islands", "Latin America & Caribbean", "High income", 4, "Grand Turk", 21.4602778, -71.141389},
+				          {"TUV", "Tuvalu", "East Asia & Pacific", "Upper middle income", 3, "Funafuti", -8.6314877, 179.089567},
+				          {"UGA", "Uganda", "Sub-Saharan Africa", "Low income", 1, "Kampala", 0.314269, 32.5729},
+				          {"UKR", "Ukraine", "Europe & Central Asia", "Upper middle income", 3, "Kiev", 50.4536, 30.5038},
+				          {"ARE", "United Arab Emirates", "MENA + Afghanistan & Pakistan", "High income", 4, "Abu Dhabi", 24.4764, 54.3705},
+				          {"GBR", "United Kingdom", "Europe & Central Asia", "High income", 4, "London", 51.5002, -0.126236},
+				          {"USA", "United States", "North America", "High income", 4, "Washington D.C.", 38.8895, -77.032},
+				          {"URY", "Uruguay", "Latin America & Caribbean", "High income", 4, "Montevideo", -34.8941, -56.0675},
+				          {"UZB", "Uzbekistan", "Europe & Central Asia", "Lower middle income", 2, "Tashkent", 41.3052, 69.269},
+				          {"VUT", "Vanuatu", "East Asia & Pacific", "Lower middle income", 2, "Port-Vila", -17.7404, 168.321},
+				          {"VEN", "Venezuela, RB", "Latin America & Caribbean", "Lower middle income", 2, "Caracas", 9.08165, -69.8371},
+				          {"VNM", "Viet Nam", "East Asia & Pacific", "Upper middle income", 3, "Hanoi", 21.0069, 105.825},
+				          {"VIR", "Virgin Islands (U.S.)", "Latin America & Caribbean", "High income", 4, "Charlotte Amalie", 18.3358, -64.8963},
+				          {"PSE", "West Bank and Gaza", "MENA + Afghanistan & Pakistan", "Lower middle income", 2, "", 31.9, 35.2},
+				          {"YEM", "Yemen, Rep.", "MENA + Afghanistan & Pakistan", "Low income", 1, "Sana'a", 15.352, 44.2075},
+				          {"ZMB", "Zambia", "Sub-Saharan Africa", "Lower middle income", 2, "Lusaka", -15.3982, 28.2937},
+				          {"ZWE", "Zimbabwe", "Sub-Saharan Africa", "Lower middle income", 2, "Harare", -17.8312, 31.0672}
+				      }
+				  ),
+				  #"Changed Type" = Table.TransformColumnTypes(Source, {{"Country Code", type text}, {"Country", type text}, {"Region", type text}, {"Income Group", type text}, {"Income Order", Int64.Type}, {"Capital City", type text}, {"Capital Latitude", type number}, {"Capital Longitude", type number}})
+				in
+				  #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,4 @@
+relationship 6c36bf19-1790-5310-87a3-15022d345bd6
+	fromColumn: 'Health Indicators'.'Country Code'
+	toColumn: Countries.'Country Code'
+

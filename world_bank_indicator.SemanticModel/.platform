@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "world_bank_indicator"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "465da52c-c69e-49f6-ab5e-c2dd5e6b01e7"
+  }
+}

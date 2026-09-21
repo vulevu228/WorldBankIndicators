@@ -1,0 +1,498 @@
+table _Measures
+	lineageTag: 912a630c-c44f-5627-868b-9d4189dee706
+
+	measure 'Life Expectancy Median' = CALCULATE(MEDIAN('Health Indicators'[Value]), 'Health Indicators'[Indicator Code] = "SP.DYN.LE00.IN")
+		formatString: 0.0" yrs"
+		displayFolder: Life Expectancy\1 Base
+		lineageTag: 4cb2816b-ccfc-5186-8742-1bf1ce4e1ac8
+
+	measure 'Life Expectancy End Year' = MIN(MAX('Health Indicators'[Year]), 2024)
+		formatString: 0
+		displayFolder: Life Expectancy\2 Reference years
+		lineageTag: feec1688-b490-57c6-9c92-51ae0e1ddaaa
+
+	measure 'Life Expectancy Start Year' = MAX(MIN('Health Indicators'[Year]), 1960)
+		formatString: 0
+		displayFolder: Life Expectancy\2 Reference years
+		lineageTag: ebb860e6-dafa-5c4e-b1c6-b7b161d22bde
+
+	measure 'Life Expectancy Latest Value' =
+			VAR Y = [Life Expectancy End Year]
+			RETURN CALCULATE([Life Expectancy Median], 'Health Indicators'[Year] = Y)
+		formatString: 0.0" yrs"
+		displayFolder: Life Expectancy\3 Latest vs start
+		lineageTag: 1f843657-4811-5685-8551-4417cf71f399
+
+	measure 'Life Expectancy Start Value' =
+			VAR Y = [Life Expectancy Start Year]
+			RETURN CALCULATE([Life Expectancy Median], 'Health Indicators'[Year] = Y)
+		formatString: 0.0" yrs"
+		displayFolder: Life Expectancy\3 Latest vs start
+		lineageTag: a91af501-ac90-5c88-9561-f1290d2e00f4
+
+	measure 'Life Expectancy Change' = IF(ISBLANK([Life Expectancy Latest Value]) || ISBLANK([Life Expectancy Start Value]), BLANK(), [Life Expectancy Latest Value] - [Life Expectancy Start Value])
+		formatString: +0.0;-0.0;0.0
+		displayFolder: Life Expectancy\3 Latest vs start
+		lineageTag: 9427c067-af3d-5564-be0d-259b729e951e
+
+	measure 'Life Expectancy All Countries Median' = CALCULATE([Life Expectancy Median], ALL(Countries))
+		formatString: 0.0" yrs"
+		displayFolder: Life Expectancy\4 Country profile
+		lineageTag: deda23f6-3e27-519f-9e99-262fff4f2296
+
+	measure 'Life Expectancy Change Summary' =
+			VAR L = [Life Expectancy Latest Value]
+			VAR B = [Life Expectancy Start Value]
+			VAR D = L - B
+			RETURN
+			IF(ISBLANK(L) || ISBLANK(B), "no data in this range",
+			    [Life Expectancy End Year] & "  |  " & IF(D >= 0, "▲ ", "▼ ") & FORMAT(ABS(D), "0.0") & " yrs" & " since " & [Life Expectancy Start Year])
+		displayFolder: Life Expectancy\3 Latest vs start
+		lineageTag: 2e698534-ef84-562b-8cf7-d0b7db0a0756
+
+	measure 'Under Five Mortality Median' = CALCULATE(MEDIAN('Health Indicators'[Value]), 'Health Indicators'[Indicator Code] = "SH.DYN.MORT")
+		formatString: 0.0
+		displayFolder: Under Five Mortality\1 Base
+		lineageTag: 633dc67e-d6c2-523e-b761-bcd5efb07d43
+
+	measure 'Under Five Mortality End Year' = MIN(MAX('Health Indicators'[Year]), 2024)
+		formatString: 0
+		displayFolder: Under Five Mortality\2 Reference years
+		lineageTag: 466711a3-22f3-552d-b54c-e72b711b271d
+
+	measure 'Under Five Mortality Start Year' = MAX(MIN('Health Indicators'[Year]), 1960)
+		formatString: 0
+		displayFolder: Under Five Mortality\2 Reference years
+		lineageTag: 8ba16b95-21d4-5bd1-9e00-fe246e07b09f
+
+	measure 'Under Five Mortality Latest Value' =
+			VAR Y = [Under Five Mortality End Year]
+			RETURN CALCULATE([Under Five Mortality Median], 'Health Indicators'[Year] = Y)
+		formatString: 0.0
+		displayFolder: Under Five Mortality\3 Latest vs start
+		lineageTag: 98c114fb-4a48-525b-b344-04b6ee2d8bec
+
+	measure 'Under Five Mortality Start Value' =
+			VAR Y = [Under Five Mortality Start Year]
+			RETURN CALCULATE([Under Five Mortality Median], 'Health Indicators'[Year] = Y)
+		formatString: 0.0
+		displayFolder: Under Five Mortality\3 Latest vs start
+		lineageTag: b2971f9c-bf08-5f08-bcdc-c157cbab38b0
+
+	measure 'Under Five Mortality Change' = IF(ISBLANK([Under Five Mortality Latest Value]) || ISBLANK([Under Five Mortality Start Value]), BLANK(), [Under Five Mortality Latest Value] - [Under Five Mortality Start Value])
+		formatString: +0.0;-0.0;0.0
+		displayFolder: Under Five Mortality\3 Latest vs start
+		lineageTag: d76e7579-086f-56f1-802c-54bcb273a37c
+
+	measure 'Under Five Mortality All Countries Median' = CALCULATE([Under Five Mortality Median], ALL(Countries))
+		formatString: 0.0
+		displayFolder: Under Five Mortality\4 Country profile
+		lineageTag: 717efe80-44c8-5cf3-81d7-b7433de524d2
+
+	measure 'Under Five Mortality Change Summary' =
+			VAR L = [Under Five Mortality Latest Value]
+			VAR B = [Under Five Mortality Start Value]
+			VAR D = DIVIDE(L - B, B)
+			RETURN
+			IF(ISBLANK(L) || ISBLANK(B), "no data in this range",
+			    [Under Five Mortality End Year] & "  |  " & IF(D >= 0, "▲ ", "▼ ") & FORMAT(ABS(D), "0%") & " since " & [Under Five Mortality Start Year])
+		displayFolder: Under Five Mortality\3 Latest vs start
+		lineageTag: 061f4110-ba59-5416-afc6-df36dc8b07b6
+
+	measure 'Fertility Rate Median' = CALCULATE(MEDIAN('Health Indicators'[Value]), 'Health Indicators'[Indicator Code] = "SP.DYN.TFRT.IN")
+		formatString: 0.00
+		displayFolder: Fertility Rate\1 Base
+		lineageTag: 14e94519-d8cd-552b-affe-2bf9695423da
+
+	measure 'Fertility Rate End Year' = MIN(MAX('Health Indicators'[Year]), 2024)
+		formatString: 0
+		displayFolder: Fertility Rate\2 Reference years
+		lineageTag: dfc5f7a2-921b-5351-bdeb-e9d57565e6f5
+
+	measure 'Fertility Rate Start Year' = MAX(MIN('Health Indicators'[Year]), 1960)
+		formatString: 0
+		displayFolder: Fertility Rate\2 Reference years
+		lineageTag: 9838aa49-716a-52fa-b513-1355691c60be
+
+	measure 'Fertility Rate Latest Value' =
+			VAR Y = [Fertility Rate End Year]
+			RETURN CALCULATE([Fertility Rate Median], 'Health Indicators'[Year] = Y)
+		formatString: 0.00
+		displayFolder: Fertility Rate\3 Latest vs start
+		lineageTag: 44c2822d-69a8-5055-aedc-4d85dc795281
+
+	measure 'Fertility Rate Start Value' =
+			VAR Y = [Fertility Rate Start Year]
+			RETURN CALCULATE([Fertility Rate Median], 'Health Indicators'[Year] = Y)
+		formatString: 0.00
+		displayFolder: Fertility Rate\3 Latest vs start
+		lineageTag: 98b4d128-5b14-5d5e-8033-f481f914ac53
+
+	measure 'Fertility Rate Change' = IF(ISBLANK([Fertility Rate Latest Value]) || ISBLANK([Fertility Rate Start Value]), BLANK(), [Fertility Rate Latest Value] - [Fertility Rate Start Value])
+		formatString: +0.0;-0.0;0.0
+		displayFolder: Fertility Rate\3 Latest vs start
+		lineageTag: 225f7697-e83a-5b81-a56f-2725a3d3ce31
+
+	measure 'Fertility Rate All Countries Median' = CALCULATE([Fertility Rate Median], ALL(Countries))
+		formatString: 0.00
+		displayFolder: Fertility Rate\4 Country profile
+		lineageTag: 41f920b3-8a0c-5b9d-902f-6a74bef2b56a
+
+	measure 'Fertility Rate Change Summary' =
+			VAR L = [Fertility Rate Latest Value]
+			VAR B = [Fertility Rate Start Value]
+			VAR D = L - B
+			RETURN
+			IF(ISBLANK(L) || ISBLANK(B), "no data in this range",
+			    [Fertility Rate End Year] & "  |  " & IF(D >= 0, "▲ ", "▼ ") & FORMAT(ABS(D), "0.00") & " births" & " since " & [Fertility Rate Start Year])
+		displayFolder: Fertility Rate\3 Latest vs start
+		lineageTag: 43c447d3-1652-5afc-b0e4-e47c3127e568
+
+	measure 'Health Spending Median' = CALCULATE(MEDIAN('Health Indicators'[Value]), 'Health Indicators'[Indicator Code] = "SH.XPD.CHEX.GD.ZS")
+		formatString: 0.0"%"
+		displayFolder: Health Spending\1 Base
+		lineageTag: 316f15e7-c76a-528e-aabf-ec8dc56f6aaf
+
+	measure 'Health Spending End Year' = MIN(MAX('Health Indicators'[Year]), 2023)
+		formatString: 0
+		displayFolder: Health Spending\2 Reference years
+		lineageTag: 68feb4b4-e004-5810-9bb9-f36e8ac43b70
+
+	measure 'Health Spending Start Year' = MAX(MIN('Health Indicators'[Year]), 2000)
+		formatString: 0
+		displayFolder: Health Spending\2 Reference years
+		lineageTag: 7691bec4-df3d-57b6-911c-8120d04935a5
+
+	measure 'Health Spending Latest Value' =
+			VAR Y = [Health Spending End Year]
+			RETURN CALCULATE([Health Spending Median], 'Health Indicators'[Year] = Y)
+		formatString: 0.0"%"
+		displayFolder: Health Spending\3 Latest vs start
+		lineageTag: 79450b85-06dd-57e7-afff-1375ea00e764
+
+	measure 'Health Spending Start Value' =
+			VAR Y = [Health Spending Start Year]
+			RETURN CALCULATE([Health Spending Median], 'Health Indicators'[Year] = Y)
+		formatString: 0.0"%"
+		displayFolder: Health Spending\3 Latest vs start
+		lineageTag: 8079c9b2-9596-5424-b4dd-e046e528199c
+
+	measure 'Health Spending Change' = IF(ISBLANK([Health Spending Latest Value]) || ISBLANK([Health Spending Start Value]), BLANK(), [Health Spending Latest Value] - [Health Spending Start Value])
+		formatString: +0.0;-0.0;0.0
+		displayFolder: Health Spending\3 Latest vs start
+		lineageTag: 10021b51-ed8e-58a7-aa4e-5754ed753704
+
+	measure 'Health Spending All Countries Median' = CALCULATE([Health Spending Median], ALL(Countries))
+		formatString: 0.0"%"
+		displayFolder: Health Spending\4 Country profile
+		lineageTag: 9be0850e-c2cd-5fe1-9b4a-6317b0e8cf3b
+
+	measure 'Health Spending Change Summary' =
+			VAR L = [Health Spending Latest Value]
+			VAR B = [Health Spending Start Value]
+			VAR D = L - B
+			RETURN
+			IF(ISBLANK(L) || ISBLANK(B), "no data in this range",
+			    [Health Spending End Year] & "  |  " & IF(D >= 0, "▲ ", "▼ ") & FORMAT(ABS(D), "0.0") & " pp" & " since " & [Health Spending Start Year])
+		displayFolder: Health Spending\3 Latest vs start
+		lineageTag: a3ead432-6830-5d03-a93b-386fbc699098
+
+	measure 'Measles Immunization Median' = CALCULATE(MEDIAN('Health Indicators'[Value]), 'Health Indicators'[Indicator Code] = "SH.IMM.MEAS")
+		formatString: 0"%"
+		displayFolder: Measles Immunization\1 Base
+		lineageTag: de3f9c38-4799-535b-bb5e-23d7b0222eb3
+
+	measure 'Measles Immunization End Year' = MIN(MAX('Health Indicators'[Year]), 2024)
+		formatString: 0
+		displayFolder: Measles Immunization\2 Reference years
+		lineageTag: c2fe6154-5349-5beb-b990-237f5bde00d5
+
+	measure 'Measles Immunization Start Year' = MAX(MIN('Health Indicators'[Year]), 1980)
+		formatString: 0
+		displayFolder: Measles Immunization\2 Reference years
+		lineageTag: b3d546bf-8d30-52ba-9752-372108e0d389
+
+	measure 'Measles Immunization Latest Value' =
+			VAR Y = [Measles Immunization End Year]
+			RETURN CALCULATE([Measles Immunization Median], 'Health Indicators'[Year] = Y)
+		formatString: 0"%"
+		displayFolder: Measles Immunization\3 Latest vs start
+		lineageTag: 025d6465-d1c5-5618-93ca-a40eb3a8214b
+
+	measure 'Measles Immunization Start Value' =
+			VAR Y = [Measles Immunization Start Year]
+			RETURN CALCULATE([Measles Immunization Median], 'Health Indicators'[Year] = Y)
+		formatString: 0"%"
+		displayFolder: Measles Immunization\3 Latest vs start
+		lineageTag: 666a4f6a-98bf-5990-b2f9-352f65cbe5fa
+
+	measure 'Measles Immunization Change' = IF(ISBLANK([Measles Immunization Latest Value]) || ISBLANK([Measles Immunization Start Value]), BLANK(), [Measles Immunization Latest Value] - [Measles Immunization Start Value])
+		formatString: +0.0;-0.0;0.0
+		displayFolder: Measles Immunization\3 Latest vs start
+		lineageTag: 22118d35-51e6-5376-a9f0-35da00a7d865
+
+	measure 'Measles Immunization All Countries Median' = CALCULATE([Measles Immunization Median], ALL(Countries))
+		formatString: 0"%"
+		displayFolder: Measles Immunization\4 Country profile
+		lineageTag: 5e7cf297-b83f-5cc9-a5ed-e26ece1c80fc
+
+	measure 'Measles Immunization Change Summary' =
+			VAR L = [Measles Immunization Latest Value]
+			VAR B = [Measles Immunization Start Value]
+			VAR D = L - B
+			RETURN
+			IF(ISBLANK(L) || ISBLANK(B), "no data in this range",
+			    [Measles Immunization End Year] & "  |  " & IF(D >= 0, "▲ ", "▼ ") & FORMAT(ABS(D), "0") & " pp" & " since " & [Measles Immunization Start Year])
+		displayFolder: Measles Immunization\3 Latest vs start
+		lineageTag: 4f7c4ce3-f10c-534b-ba02-fe330173b960
+
+	measure 'Maternal Mortality Median' = CALCULATE(MEDIAN('Health Indicators'[Value]), 'Health Indicators'[Indicator Code] = "SH.STA.MMRT")
+		formatString: 0
+		displayFolder: Maternal Mortality\1 Base
+		lineageTag: 005dac21-a478-516e-9a20-9d6a5ada0c65
+
+	measure 'Maternal Mortality End Year' = MIN(MAX('Health Indicators'[Year]), 2023)
+		formatString: 0
+		displayFolder: Maternal Mortality\2 Reference years
+		lineageTag: fd83515e-181a-5275-b646-35a0218f6e47
+
+	measure 'Maternal Mortality Start Year' = MAX(MIN('Health Indicators'[Year]), 1990)
+		formatString: 0
+		displayFolder: Maternal Mortality\2 Reference years
+		lineageTag: cc53cffb-189a-5196-b95e-8504cc98f04c
+
+	measure 'Maternal Mortality Latest Value' =
+			VAR Y = [Maternal Mortality End Year]
+			RETURN CALCULATE([Maternal Mortality Median], 'Health Indicators'[Year] = Y)
+		formatString: 0
+		displayFolder: Maternal Mortality\3 Latest vs start
+		lineageTag: 6e3e151e-7646-508e-845a-3f158b7ab218
+
+	measure 'Maternal Mortality Start Value' =
+			VAR Y = [Maternal Mortality Start Year]
+			RETURN CALCULATE([Maternal Mortality Median], 'Health Indicators'[Year] = Y)
+		formatString: 0
+		displayFolder: Maternal Mortality\3 Latest vs start
+		lineageTag: ce111069-4505-5e85-ac9c-e2706b65faad
+
+	measure 'Maternal Mortality Change' = IF(ISBLANK([Maternal Mortality Latest Value]) || ISBLANK([Maternal Mortality Start Value]), BLANK(), [Maternal Mortality Latest Value] - [Maternal Mortality Start Value])
+		formatString: +0.0;-0.0;0.0
+		displayFolder: Maternal Mortality\3 Latest vs start
+		lineageTag: 1c542463-783b-509e-83a8-0935cc102ec5
+
+	measure 'Maternal Mortality All Countries Median' = CALCULATE([Maternal Mortality Median], ALL(Countries))
+		formatString: 0
+		displayFolder: Maternal Mortality\4 Country profile
+		lineageTag: dba69a80-2c14-5065-9a60-5f29860582f3
+
+	measure 'Maternal Mortality Change Summary' =
+			VAR L = [Maternal Mortality Latest Value]
+			VAR B = [Maternal Mortality Start Value]
+			VAR D = DIVIDE(L - B, B)
+			RETURN
+			IF(ISBLANK(L) || ISBLANK(B), "no data in this range",
+			    [Maternal Mortality End Year] & "  |  " & IF(D >= 0, "▲ ", "▼ ") & FORMAT(ABS(D), "0%") & " since " & [Maternal Mortality Start Year])
+		displayFolder: Maternal Mortality\3 Latest vs start
+		lineageTag: f9fe3cd3-6ef6-54a6-8188-7ed84b3241d6
+
+	measure 'Tuberculosis Incidence Median' = CALCULATE(MEDIAN('Health Indicators'[Value]), 'Health Indicators'[Indicator Code] = "SH.TBS.INCD")
+		formatString: 0
+		displayFolder: Tuberculosis Incidence\1 Base
+		lineageTag: 26dedda6-3398-5786-8553-d0fc4e64b013
+
+	measure 'Tuberculosis Incidence End Year' = MIN(MAX('Health Indicators'[Year]), 2024)
+		formatString: 0
+		displayFolder: Tuberculosis Incidence\2 Reference years
+		lineageTag: b765c91a-b7a2-578d-bb31-97cebbbedb0a
+
+	measure 'Tuberculosis Incidence Start Year' = MAX(MIN('Health Indicators'[Year]), 2000)
+		formatString: 0
+		displayFolder: Tuberculosis Incidence\2 Reference years
+		lineageTag: 26b447d0-3eb1-5987-acf0-d47be924c7ce
+
+	measure 'Tuberculosis Incidence Latest Value' =
+			VAR Y = [Tuberculosis Incidence End Year]
+			RETURN CALCULATE([Tuberculosis Incidence Median], 'Health Indicators'[Year] = Y)
+		formatString: 0
+		displayFolder: Tuberculosis Incidence\3 Latest vs start
+		lineageTag: d87c6a46-5cef-5a1e-a88f-a0d073f9af6b
+
+	measure 'Tuberculosis Incidence Start Value' =
+			VAR Y = [Tuberculosis Incidence Start Year]
+			RETURN CALCULATE([Tuberculosis Incidence Median], 'Health Indicators'[Year] = Y)
+		formatString: 0
+		displayFolder: Tuberculosis Incidence\3 Latest vs start
+		lineageTag: 1a0077bf-7e5c-5d8a-b62a-31c4e1c942ca
+
+	measure 'Tuberculosis Incidence Change' = IF(ISBLANK([Tuberculosis Incidence Latest Value]) || ISBLANK([Tuberculosis Incidence Start Value]), BLANK(), [Tuberculosis Incidence Latest Value] - [Tuberculosis Incidence Start Value])
+		formatString: +0.0;-0.0;0.0
+		displayFolder: Tuberculosis Incidence\3 Latest vs start
+		lineageTag: 32aad7d3-4b7c-56ea-9da6-120ba5578068
+
+	measure 'Tuberculosis Incidence All Countries Median' = CALCULATE([Tuberculosis Incidence Median], ALL(Countries))
+		formatString: 0
+		displayFolder: Tuberculosis Incidence\4 Country profile
+		lineageTag: 1356acc4-628e-5954-8fd1-29e9db9b5a53
+
+	measure 'Tuberculosis Incidence Change Summary' =
+			VAR L = [Tuberculosis Incidence Latest Value]
+			VAR B = [Tuberculosis Incidence Start Value]
+			VAR D = DIVIDE(L - B, B)
+			RETURN
+			IF(ISBLANK(L) || ISBLANK(B), "no data in this range",
+			    [Tuberculosis Incidence End Year] & "  |  " & IF(D >= 0, "▲ ", "▼ ") & FORMAT(ABS(D), "0%") & " since " & [Tuberculosis Incidence Start Year])
+		displayFolder: Tuberculosis Incidence\3 Latest vs start
+		lineageTag: 56698f45-3c07-52f0-a3fb-74f2d39a221e
+
+	measure 'HIV Prevalence Median' = CALCULATE(MEDIAN('Health Indicators'[Value]), 'Health Indicators'[Indicator Code] = "SH.DYN.AIDS.ZS")
+		formatString: 0.00
+		displayFolder: HIV Prevalence\1 Base
+		lineageTag: 1ced82de-609b-57a6-b729-cc4dd9afcad4
+
+	measure 'HIV Prevalence End Year' = MIN(MAX('Health Indicators'[Year]), 2024)
+		formatString: 0
+		displayFolder: HIV Prevalence\2 Reference years
+		lineageTag: f9cb1f78-8991-5b01-8823-637d67e333d6
+
+	measure 'HIV Prevalence Start Year' = MAX(MIN('Health Indicators'[Year]), 1990)
+		formatString: 0
+		displayFolder: HIV Prevalence\2 Reference years
+		lineageTag: 6f224f7c-46b5-5f69-ac9a-c4413448f52b
+
+	measure 'HIV Prevalence Latest Value' =
+			VAR Y = [HIV Prevalence End Year]
+			RETURN CALCULATE([HIV Prevalence Median], 'Health Indicators'[Year] = Y)
+		formatString: 0.00
+		displayFolder: HIV Prevalence\3 Latest vs start
+		lineageTag: 86a0ec4a-445a-5ee7-8999-b02d58da6766
+
+	measure 'HIV Prevalence Start Value' =
+			VAR Y = [HIV Prevalence Start Year]
+			RETURN CALCULATE([HIV Prevalence Median], 'Health Indicators'[Year] = Y)
+		formatString: 0.00
+		displayFolder: HIV Prevalence\3 Latest vs start
+		lineageTag: a9d124b4-676a-56c8-ae61-e914d7c92888
+
+	measure 'HIV Prevalence Change' = IF(ISBLANK([HIV Prevalence Latest Value]) || ISBLANK([HIV Prevalence Start Value]), BLANK(), [HIV Prevalence Latest Value] - [HIV Prevalence Start Value])
+		formatString: +0.0;-0.0;0.0
+		displayFolder: HIV Prevalence\3 Latest vs start
+		lineageTag: 79bb074e-5c9c-5093-bb4f-b33a4a5477e2
+
+	measure 'HIV Prevalence All Countries Median' = CALCULATE([HIV Prevalence Median], ALL(Countries))
+		formatString: 0.00
+		displayFolder: HIV Prevalence\4 Country profile
+		lineageTag: de5430ef-2b28-58b2-949d-bd9e80fb11ca
+
+	measure 'HIV Prevalence Change Summary' =
+			VAR L = [HIV Prevalence Latest Value]
+			VAR B = [HIV Prevalence Start Value]
+			VAR D = DIVIDE(L - B, B)
+			RETURN
+			IF(ISBLANK(L) || ISBLANK(B), "no data in this range",
+			    [HIV Prevalence End Year] & "  |  " & IF(D >= 0, "▲ ", "▼ ") & FORMAT(ABS(D), "0%") & " since " & [HIV Prevalence Start Year])
+		displayFolder: HIV Prevalence\3 Latest vs start
+		lineageTag: 366af965-d0c6-5dad-bcce-1c43cb871f04
+
+	measure 'Physicians Median' = CALCULATE(MEDIAN('Health Indicators'[Value]), 'Health Indicators'[Indicator Code] = "SH.MED.PHYS.ZS")
+		formatString: 0.00
+		displayFolder: Physicians\1 Base
+		lineageTag: 096c22ac-fe4a-5d8a-a1cd-6bd08f329533
+
+	measure 'Physicians End Year' = MIN(MAX('Health Indicators'[Year]), 2022)
+		formatString: 0
+		displayFolder: Physicians\2 Reference years
+		lineageTag: d7f55843-66a0-530b-b4d1-6959d1432e96
+
+	measure 'Physicians Start Year' = MAX(MIN('Health Indicators'[Year]), 1960)
+		formatString: 0
+		displayFolder: Physicians\2 Reference years
+		lineageTag: 111748fc-9b95-5f91-ab82-585f3f4ecb6c
+
+	measure 'Physicians Latest Value' =
+			VAR Y = [Physicians End Year]
+			RETURN CALCULATE([Physicians Median], 'Health Indicators'[Year] = Y)
+		formatString: 0.00
+		displayFolder: Physicians\3 Latest vs start
+		lineageTag: 2a33938c-4ce9-5d93-8d2d-56456bec41dd
+
+	measure 'Physicians Start Value' =
+			VAR Y = [Physicians Start Year]
+			RETURN CALCULATE([Physicians Median], 'Health Indicators'[Year] = Y)
+		formatString: 0.00
+		displayFolder: Physicians\3 Latest vs start
+		lineageTag: 1071bf30-0b5b-588c-ae20-28a14cc528d5
+
+	measure 'Physicians Change' = IF(ISBLANK([Physicians Latest Value]) || ISBLANK([Physicians Start Value]), BLANK(), [Physicians Latest Value] - [Physicians Start Value])
+		formatString: +0.0;-0.0;0.0
+		displayFolder: Physicians\3 Latest vs start
+		lineageTag: 3bf0a958-635c-5f0e-9b59-5db27fa7f128
+
+	measure 'Physicians All Countries Median' = CALCULATE([Physicians Median], ALL(Countries))
+		formatString: 0.00
+		displayFolder: Physicians\4 Country profile
+		lineageTag: c7ed0dc7-68ea-511f-8427-3e586dd02fd9
+
+	measure 'Physicians Change Summary' =
+			VAR L = [Physicians Latest Value]
+			VAR B = [Physicians Start Value]
+			VAR D = L - B
+			RETURN
+			IF(ISBLANK(L) || ISBLANK(B), "no data in this range",
+			    [Physicians End Year] & "  |  " & IF(D >= 0, "▲ ", "▼ ") & FORMAT(ABS(D), "0.00") & " per 1,000" & " since " & [Physicians Start Year])
+		displayFolder: Physicians\3 Latest vs start
+		lineageTag: d6d36e77-d132-5acd-a696-b319d6130da8
+
+	measure 'Measles Immunization Trend' = IF(MIN('Health Indicators'[Year]) >= 1990, [Measles Immunization Median])
+		formatString: 0"%"
+		displayFolder: Chart measures
+		lineageTag: 3b94aa27-ca3e-5dd6-a5af-b97b900076e9
+
+	measure 'Chart Life Expectancy Start Value' = [Life Expectancy Start Value]
+		formatString: 0.0
+		displayFolder: Chart measures
+		lineageTag: 6bb6db93-ccd4-5d68-ba32-e61c53f07054
+
+	measure 'Chart Life Expectancy Latest Value' = [Life Expectancy Latest Value]
+		formatString: 0.0
+		displayFolder: Chart measures
+		lineageTag: 05269c4d-2afa-5b45-8f43-10520ef0c80f
+
+	measure 'Under Five Mortality Top 10 Countries' =
+			VAR V = [Under Five Mortality Latest Value]
+			RETURN IF(NOT ISBLANK(V) && RANKX(ALLSELECTED(Countries[Country]), [Under Five Mortality Latest Value], , DESC, Dense) <= 10, V)
+		formatString: 0.0
+		displayFolder: Rankings
+		lineageTag: 4c0191a3-68cf-54ff-8b51-789abd4367c2
+
+	measure 'Life Expectancy Gain Top 10 Countries' =
+			VAR V = [Life Expectancy Change]
+			RETURN IF(NOT ISBLANK(V) && RANKX(ALLSELECTED(Countries[Country]), [Life Expectancy Change], , DESC, Dense) <= 10, V)
+		formatString: +0.0;-0.0;0.0
+		displayFolder: Rankings
+		lineageTag: f708020c-0b99-5340-a0a8-cc3a345ddd05
+
+	measure 'Selected Country Label' = IF(HASONEVALUE(Countries[Country]), VALUES(Countries[Country]), COUNTROWS(VALUES(Countries[Country])) & " countries selected")
+		displayFolder: Labels
+		lineageTag: 74f355dd-aae5-5657-964f-ba0c4ea4cf68
+
+	column Value
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7cca2f03-1576-5c58-b1da-d1e41a4c8aff
+		summarizeBy: none
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+				  Source = #table({"Value"}, {{0}}),
+				  #"Changed Type" = Table.TransformColumnTypes(Source, {{"Value", Int64.Type}})
+				in
+				  #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

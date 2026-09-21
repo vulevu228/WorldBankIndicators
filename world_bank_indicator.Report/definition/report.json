@@ -1,0 +1,114 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "Fluent2-CY26SU08",
+      "reportVersionAtImport": {
+        "visual": "2.12.0",
+        "report": "3.4.0",
+        "page": "2.3.1"
+      },
+      "type": "SharedResources"
+    }
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "Fluent2-CY26SU08",
+          "path": "BaseThemes/Fluent2-CY26SU08.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "hero_banner8842.png",
+          "path": "hero_banner8842.png",
+          "type": "Image"
+        },
+        {
+          "name": "globe_dots5127.png",
+          "path": "globe_dots5127.png",
+          "type": "Image"
+        },
+        {
+          "name": "bg_canvas_tall3391.jpg",
+          "path": "bg_canvas_tall3391.jpg",
+          "type": "Image"
+        },
+        {
+          "name": "bg_canvas_short7710.jpg",
+          "path": "bg_canvas_short7710.jpg",
+          "type": "Image"
+        },
+        {
+          "name": "strip_longevity1101.png",
+          "path": "strip_longevity1101.png",
+          "type": "Image"
+        },
+        {
+          "name": "strip_child2202.png",
+          "path": "strip_child2202.png",
+          "type": "Image"
+        },
+        {
+          "name": "strip_fertility3303.png",
+          "path": "strip_fertility3303.png",
+          "type": "Image"
+        },
+        {
+          "name": "strip_spending4404.png",
+          "path": "strip_spending4404.png",
+          "type": "Image"
+        },
+        {
+          "name": "strip_prevent5505.png",
+          "path": "strip_prevent5505.png",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "useDefaultAggregateDisplayName": true
+  }
+}

@@ -1,0 +1,69 @@
+table 'Health Indicators'
+	lineageTag: 79676841-b25d-4feb-80fe-65ec028482c0
+
+	column Country
+		dataType: string
+		lineageTag: e2befc92-6986-4fc9-a5ac-05fb80c6e9ee
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Country Code'
+		dataType: string
+		lineageTag: b76906e2-dc65-4ea8-b986-b623a72b9804
+		summarizeBy: none
+		sourceColumn: country_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Indicator Code'
+		dataType: string
+		lineageTag: 4006e460-dddf-4a91-b301-868ff857e393
+		summarizeBy: none
+		sourceColumn: indicator_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Indicator Name'
+		dataType: string
+		lineageTag: fac0e4a8-73e2-478f-8ea1-e5775947be93
+		summarizeBy: none
+		sourceColumn: indicator_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 5b149b81-59ed-4459-aa63-b6f7c118658f
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = User
+
+	column Value
+		dataType: double
+		lineageTag: 2bd9a3d9-4e2e-4a81-8405-2164f54a1135
+		summarizeBy: sum
+		sourceColumn: value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Health Indicators' = m
+		mode: import
+		source =
+				let
+				  Source = Excel.Workbook(File.Contents("C:\Users\emira\Projects\GitHub-Projects\WorldBankIndicators\data\health_indicators.xlsx"), null, true),
+				  #"Navigation 1" = Source{[Item = "health_indicators", Kind = "Sheet"]}[Data],
+				  #"Promoted headers" = Table.PromoteHeaders(#"Navigation 1", [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"country", type text}, {"country_code", type text}, {"indicator_code", type text}, {"indicator_name", type text}, {"year", Int64.Type}, {"value", type number}}, "en-US")
+				in
+				  #"Changed column type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

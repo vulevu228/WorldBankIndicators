@@ -1,0 +1,21 @@
+model Model
+	culture: en-GB
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-GB
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["Health Indicators","Countries","_Measures"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table 'Health Indicators'
+ref table Countries
+ref table _Measures
+
+ref cultureInfo en-GB
+
